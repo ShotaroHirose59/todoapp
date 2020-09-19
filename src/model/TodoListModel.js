@@ -5,8 +5,8 @@ export class TodoListModel extends EventEmitter {
    * @param {TodoItemModel[]} [items] 初期アイテム一覧（デフォルトは空の配列）
    */
   constructor(items = []) {
-      super();
-      this.items = items;
+    super();
+    this.items = items;
   }
 
   /**
@@ -14,7 +14,7 @@ export class TodoListModel extends EventEmitter {
    * @returns {number}
    */
   getTotalCount() {
-      return this.items.length;
+    return this.items.length;
   }
 
   /**
@@ -22,7 +22,7 @@ export class TodoListModel extends EventEmitter {
    * @returns {TodoItemModel[]}
    */
   getTodoItems() {
-      return this.items;
+    return this.items;
   }
 
   /**
@@ -30,14 +30,14 @@ export class TodoListModel extends EventEmitter {
    * @param {Function} listener
    */
   onChange(listener) {
-      this.addEventListener("change", listener);
+    this.addEventListener("change", listener);
   }
 
   /**
    * 状態が変更されたときに呼ぶ。登録済みのリスナー関数を呼び出す
    */
   emitChange() {
-      this.emit("change");
+    this.emit("change");
   }
 
   /**
@@ -45,8 +45,8 @@ export class TodoListModel extends EventEmitter {
    * @param {TodoItemModel} todoItem
    */
   addTodo(todoItem) {
-      this.items.push(todoItem);
-      this.emitChange();
+    this.items.push(todoItem);
+    this.emitChange();
   }
 
   /**
@@ -57,21 +57,21 @@ export class TodoListModel extends EventEmitter {
     // `id`が一致するTodoItemを見つけ、あるなら完了状態の値を更新する
     const todoItem = this.items.find(todo => todo.id === id);
     if (!todoItem) {
-        return;
+      return;
     }
     todoItem.completed = completed;
     this.emitChange();
   }
-  
+
   /**
-     * 指定したidのTodoItemを削除する
-     * @param {{ id: number }}
-     */
-    deleteTodo({ id }) {
-      // `id`に一致しないTodoItemだけを残すことで、`id`に一致するTodoItemを削除する
-      this.items = this.items.filter(todo => {
-          return todo.id !== id;
-      });
-      this.emitChange();
+   * 指定したidのTodoItemを削除する
+   * @param {{ id: number }}
+   */
+  deleteTodo({ id }) {
+    // `id`に一致しないTodoItemだけを残すことで、`id`に一致するTodoItemを削除する
+    this.items = this.items.filter(todo => {
+      return todo.id !== id;
+    });
+    this.emitChange();
   }
 }
